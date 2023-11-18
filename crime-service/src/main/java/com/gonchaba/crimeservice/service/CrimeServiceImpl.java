@@ -1,5 +1,6 @@
 package com.gonchaba.crimeservice.service;
 
+import com.gonchaba.crimeservice.config.WebClientConfig;
 import com.gonchaba.crimeservice.dto.CrimeDTO;
 import com.gonchaba.crimeservice.dto.PoliceStationResponse;
 import com.gonchaba.crimeservice.model.Crime;
@@ -16,9 +17,12 @@ public class CrimeServiceImpl implements CrimeService {
     private final CrimeRepository crimeRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public CrimeServiceImpl(CrimeRepository crimeRepository, WebClient.Builder webClientBuilder) {
+    private final WebClientConfig config;
+
+    public CrimeServiceImpl(CrimeRepository crimeRepository, WebClient.Builder webClientBuilder, WebClientConfig config) {
         this.crimeRepository = crimeRepository;
         this.webClientBuilder = webClientBuilder;
+        this.config = config;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class CrimeServiceImpl implements CrimeService {
     public List<PoliceStationResponse.PoliceStation> getNearestPoliceStations(double userLat, double userLng) {
         PoliceStationResponse response = webClientBuilder.build()
                 .get()
-                .uri("http://localhost:8080/places/police-stations?latitude={latitude}&longitude={longitude}", userLat, userLng)
+                .uri(config.getUri(), userLat, userLng)
                 .retrieve()
                 .bodyToMono(PoliceStationResponse.class)
                 .block();

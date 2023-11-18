@@ -16,6 +16,6 @@ public class MapUser {
     private Long id;
     private String userName;
     private String password;
-    @OneToMany(mappedBy = "mapUser")
+    @OneToMany(mappedBy = "mapUser", fetch = FetchType.EAGER)
     private List<Crime> crimes;
 }
