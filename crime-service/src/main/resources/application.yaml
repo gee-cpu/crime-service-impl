@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crimeservice
+    username: postgres
+    password: admin
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database: PostgreSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  logging:
+    level:
+      org.springframework: DEBUG
+      org.hibernate: INFO
+server:
+  port: 8084
+external-api:
+  uri: "http://localhost:8080/places/police-stations?latitude={latitude}&longitude={longitude}"
