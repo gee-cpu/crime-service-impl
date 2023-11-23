@@ -28,12 +28,7 @@ public class CrimeServiceImpl implements CrimeService {
     @Override
     public void reportCrime(MapUser user, CrimeDTO crimeDTO) {
 
-        Crime crime = new Crime();
-        crime.setDescription(crimeDTO.getDescription());
-        crime.setLocation(crimeDTO.getLocation());
-        crime.setCrimeType(crimeDTO.getCrimeType());
-        crime.setEvidence(crimeDTO.getEvidence());
-        crime.setWitness(crimeDTO.getWitness());
+        Crime crime = Crime.builder().description(crimeDTO.getDescription()).location(crimeDTO.getLocation()).crimeType(crimeDTO.getCrimeType()).evidence(crimeDTO.getEvidence()).witness(crimeDTO.getWitness()).build();
         crime.setMapUser(user);
 
         crimeRepository.save(crime);
@@ -41,12 +36,7 @@ public class CrimeServiceImpl implements CrimeService {
 
     @Override
     public List<PoliceStationResponse.PoliceStation> getNearestPoliceStations(double userLat, double userLng) {
-        PoliceStationResponse response = webClientBuilder.build()
-                .get()
-                .uri(config.getUri(), userLat, userLng)
-                .retrieve()
-                .bodyToMono(PoliceStationResponse.class)
-                .block();
+        PoliceStationResponse response = webClientBuilder.build().get().uri(config.getUri(), userLat, userLng).retrieve().bodyToMono(PoliceStationResponse.class).block();
 
         if (response != null && response.getResults() != null) {
             return response.getResults();

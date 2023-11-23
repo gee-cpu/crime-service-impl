@@ -33,9 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public MapUser createUser(MapUserDTO userDto) {
-        MapUser mapUser = new MapUser();
-        mapUser.setUserName(userDto.getUserName());
-        mapUser.setPassword(userDto.getPassword());
+        MapUser mapUser = MapUser.builder()
+                .userName(userDto.getUserName())
+                .password(userDto.getPassword()).build();
+
 
         return userRepository.save(mapUser);
     }
