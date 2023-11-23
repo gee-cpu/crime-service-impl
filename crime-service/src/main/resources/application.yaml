@@ -1,3 +1,5 @@
+server:
+  port: 8082
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/crimeservice
@@ -14,7 +16,15 @@ spring:
     level:
       org.springframework: DEBUG
       org.hibernate: INFO
-server:
-  port: 8084
+  cloud:
+    config:
+      enabled: false
+  application:
+    name: crime-service
+  config:
+    import:
+     config-server: http://localhost:8083
+
 external-api:
   uri: "http://localhost:8080/places/police-stations?latitude={latitude}&longitude={longitude}"
+
