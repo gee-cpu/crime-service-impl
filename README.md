@@ -1,4 +1,11 @@
-1.**#CRIME-SERVICE
+**#CRIME-SERVICE**
 
-2.#This is a service that implements maps integration. 
+#This is a service that implements maps integration which in turn calls location services of google.
+
+## Author
+
+- **Name:** George Onchaba
+- **Email:** ggonchaba@gmail.com
+- **GitHub:** https://github.com/gee-cpu
+
 
