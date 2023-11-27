@@ -21,6 +21,7 @@ public class Crime {
     private String evidence;
     private String witness;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private MapUser mapUser;
 
 

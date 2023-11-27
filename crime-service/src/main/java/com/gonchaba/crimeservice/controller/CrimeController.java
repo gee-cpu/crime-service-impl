@@ -2,6 +2,7 @@ package com.gonchaba.crimeservice.controller;
 
 import com.gonchaba.crimeservice.dto.CrimeDTO;
 import com.gonchaba.crimeservice.dto.PoliceStationResponse;
+import com.gonchaba.crimeservice.model.Crime;
 import com.gonchaba.crimeservice.model.MapUser;
 import com.gonchaba.crimeservice.service.CrimeService;
 import com.gonchaba.crimeservice.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/crimes")
@@ -30,6 +32,12 @@ public class CrimeController {
     ) {
         var nearestPoliceStations = crimeService.getNearestPoliceStations(userLat, userLng);
         return ResponseEntity.ok(nearestPoliceStations);
+    }
+    @GetMapping( "/crime/{userId}")
+    public ResponseEntity<Optional<Crime>> getCrimesByUserId(@PathVariable Long userId){
+        Optional<Crime> crimes = crimeService.getCrimesByUserId(userId);
+
+        return ResponseEntity.ok(crimes);
     }
 
     @PostMapping("/report")

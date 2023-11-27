@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrimeServiceImpl implements CrimeService {
@@ -32,6 +33,11 @@ public class CrimeServiceImpl implements CrimeService {
         crime.setMapUser(user);
 
         crimeRepository.save(crime);
+    }
+
+    @Override
+    public Optional<Crime> getCrimesByUserId(Long userId) {
+        return crimeRepository.findById(userId);
     }
 
     @Override

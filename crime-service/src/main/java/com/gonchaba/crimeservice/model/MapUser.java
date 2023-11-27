@@ -3,6 +3,7 @@ package com.gonchaba.crimeservice.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,5 +19,5 @@ public class MapUser {
     private String userName;
     private String password;
     @OneToMany(mappedBy = "mapUser", fetch = FetchType.EAGER)
-    private List<Crime> crimes;
+    private List<Crime> crimes = new ArrayList<>();
 }
