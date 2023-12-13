@@ -1,0 +1,36 @@
+package com.gonchaba.crimeservice.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig {
+
+    @Bean
+    public DefaultSecurityFilterChain securityWebFilterChain(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity
+                .authorizeRequests(
+                        authorizeRequest -> {
+                            try {
+                                authorizeRequest
+                                        .anyRequest()
+                                        .authenticated()
+                                        .and().oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+       return httpSecurity.build();
+    }
+}

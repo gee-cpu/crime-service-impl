@@ -12,6 +12,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
   logging:
     level:
       org.springframework: DEBUG
@@ -24,9 +25,33 @@ spring:
   config:
     import:
      config-server: http://localhost:8083
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://dev-44453706.okta.com/oauth2/default
+          jwk-set-uri: https://dev-44453706.okta.com/oauth2/default/v1/keys
+
+      client:
+        registration:
+          internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oadsyp6j7ur9KEs85d7
+            client-secret: GOfasQdsTma1ue7nlw9KI-X60blaQ7k5ZDIl9rbX12emwn-SADk2R9IHzatVPTmd
+        provider:
+          okta:
+            oauth2:
+             issuer-uri: https://dev-44453706.okta.com/oauth2/default
+             client-id: 0oadsyp6j7ur9KEs85d7
+             client-secret: GOfasQdsTma1ue7nlw9KI-X60blaQ7k5ZDIl9rbX12emwn-SADk2R9IHzatVPTmd
+
+
+
 
 external-api:
-  uri: "http://localhost:8080/places/police-stations?latitude={latitude}&longitude={longitude}"
+  uri: http://localhost:8081/places/police-stations?latitude={latitude}&longitude={longitude}
 
 eureka:
   instance:
@@ -49,3 +74,4 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-windows-size: 10
         sliding-window-type: COUNT_BASED
+
